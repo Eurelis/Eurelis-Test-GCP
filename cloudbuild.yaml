@@ -4,10 +4,6 @@ steps:
 
   - name: gcr.io/cloud-builders/git
     entrypoint: /bin/bash
-    args: ["-c", "ls -la"]
-
-  - name: gcr.io/cloud-builders/git
-    entrypoint: /bin/bash
     args: ["-c", "git rev-list --count ${SHORT_SHA}"]
 
   - name: gcr.io/cloud-builders/git
@@ -15,7 +11,15 @@ steps:
     args:
       [
         "-c",
-        "echo -n ${BRANCH_NAME}:${SHORT_SHA}:$(git rev-list --count ${SHORT_SHA}) > app/VERSION_TAG",
+        "echo -n ${BRANCH_NAME}:${SHORT_SHA}:$(git rev-list --count ${SHORT_SHA}) > VERSION_TAG",
       ]
+
+  - name: gcr.io/cloud-builders/git
+    entrypoint: /bin/bash
+    args: ["-c", "ls -la"]
+
+  - name: gcr.io/cloud-builders/git
+    entrypoint: /bin/bash
+    args: ["-c", "cat VERSION_TAG"]
 
 timeout: "1600s"
