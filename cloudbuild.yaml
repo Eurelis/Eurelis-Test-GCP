@@ -1,10 +1,14 @@
 steps:
   - name: gcr.io/cloud-builders/git
     entrypoint: /bin/bash
+    args: ["-c", "ls -la"]
+
+  - name: gcr.io/cloud-builders/git
+    entrypoint: /bin/bash
     args: ["-c", "git rev-list --count ${SHORT_SHA}"]
 
   - name: gcr.io/cloud-builders/git
     entrypoint: /bin/bash
-    args: ["-c", "git describe --tags --exact-match"]
+    args: ["-c", "git describe --tags --exact-match 2> /dev/null"]
 
 timeout: "1600s"
