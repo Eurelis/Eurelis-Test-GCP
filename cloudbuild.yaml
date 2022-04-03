@@ -1,4 +1,9 @@
 steps:
   - name: gcr.io/cloud-builders/git
-    args: ["clone"]
+    entrypoint: /bin/bash
+    args:
+      [
+        "-c",
+        "echo -n ${BRANCH_NAME}:${SHORT_SHA}:$(git rev-list --count ${SHORT_SHA}):$(git describe --tags --exact-match 2> /dev/null) > app/VERSION_TAG",
+      ]
 timeout: "1600s"
