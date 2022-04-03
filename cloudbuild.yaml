@@ -1,5 +1,5 @@
 steps:
   - name: gcr.io/cloud-builders/git
     entrypoint: /bin/bash
-    args: ["-c", "export"]
+    args: ["-c", "echo -n ${BRANCH_NAME}:${SHORT_SHA}:${SHORT_SHA} ; ls"]
 timeout: "1600s"
