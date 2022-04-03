@@ -12,6 +12,10 @@ steps:
 
   - name: gcr.io/cloud-builders/git
     entrypoint: /bin/bash
-    args: ["-c", "git describe --tags --exact-match 2> /dev/null"]
+    args:
+      [
+        "-c",
+        "echo -n ${BRANCH_NAME}:${SHORT_SHA}:$(git rev-list --count ${SHORT_SHA}) > app/VERSION_TAG",
+      ]
 
 timeout: "1600s"
